@@ -8,3 +8,5 @@ quietdrop-core = { path = "../quietdrop-core" }
 tokio = { version = "1.0", features = ["full", "rt-multi-thread"] }
 sodiumoxide = "0.2.7"
 chrono = { version = "0.4", features = ["serde"] }
+rustyline = "14"
+dirs = "5"

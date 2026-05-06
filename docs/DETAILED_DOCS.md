@@ -209,6 +209,43 @@ In a separate terminal, run the client:
 cargo run -p quietdrop-cli -- client
 ```
 
+The client launches an interactive prompt with full line editing and
+persistent **command** history (powered by `rustyline`):
+
+- Up / Down arrows: recall previously typed slash-commands
+- Ctrl+R: reverse history search
+- Left/Right, Home/End, Ctrl+A/E/U/K/W: standard line editing
+- Ctrl+D (or `/quit`) to exit
+
+Available slash-commands:
+
+| Command | Description |
+| --- | --- |
+| `/help`, `/?` | Show help |
+| `/quit`, `/exit` | Exit the client |
+| `/clear` | Clear the screen |
+| `/history` | Print stored command history |
+| `/clear-history` | Wipe in-memory and on-disk history |
+| `/recipient <name>`, `/to <name>` | Change the message recipient |
+
+Anything that does **not** start with `/` is encrypted and sent as a
+message.
+
+**Privacy note.** Only commands are written to history — message bodies
+are never persisted. The history file lives at the OS-standard
+per-user data directory:
+
+- Windows: `%LOCALAPPDATA%\quietdrop\history.txt`
+- macOS: `~/Library/Application Support/quietdrop/history.txt`
+- Linux: `$XDG_DATA_HOME/quietdrop/history.txt` (typically `~/.local/share/quietdrop/history.txt`)
+
+On Unix the file is created with mode `0600`. Pass `--no-history` to
+disable persistence entirely for an ephemeral session:
+
+```bash
+cargo run -p quietdrop-cli -- client --no-history
+```
+
 ### Running the Cross-Platform Application
 
 For development:
